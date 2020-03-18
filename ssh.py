@@ -1,11 +1,23 @@
 import paramiko
-ssh_client =paramiko.SSHClient()
-ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh_client.connect("go.eecis.udel.edu", port=22,username="searfmat",password="M@ttORH$2019")
-stdin,stdout,stderr=ssh_client.exec_command("ls")
-print(stdout.readlines())
-ssh_client.close()
+import functions
 
-#ftp_client=ssh.open_sftp()
-#ftp_client.put("localfilepath","remotefilepath")
-#ftp_client.close()
+def ssh():
+
+    print(str(functions.dirList[0]))
+    
+    ssh_client =paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(functions.HOST, port=functions.PORT,username=functions.USER,password=functions.PASSWORD)
+
+    stdin,stdout,stderr=ssh_client.exec_command("ls")
+    print(stdout.readlines())
+    
+    ftp_client=ssh_client.open_sftp()
+    ftp_client.put(str(functions.dirList[0]),"~")
+
+    stdin,stdout,stderr=ssh_client.exec_command("ls")
+    print(stdout.readlines())
+
+    ftp_client.close()
+    ssh_client.close()
+    
