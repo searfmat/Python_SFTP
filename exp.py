@@ -1,18 +1,22 @@
 from tkinter import *  
 from tkinter import filedialog
+import execute
 
 def fileopen():
     root.filename =  filedialog.askdirectory(initialdir = "/",title = "Select file",)
     newList.insert(1, root.filename)
     #for testing only
     print(root.filename)
+    execute.printFunc(2)
+    return root.filename
 
 #for testing only
-def sendTest():
+def send():
     print(newHost.get())
-    print(newPort.get())
+    print(newHost.get())
     print(newUsername.get())
     print(newPassword.get())
+    return newHost.get(), newHost.get(), newUsername.get(), newPassword.get()
 
 
 root = Tk()
@@ -26,7 +30,7 @@ newPassword = Entry(root)
 newList = Listbox(root, height=10, width=50)
 dirButton = Button(root, text = "Add Directories", command = fileopen)
 #sendTest is for testing only
-sendButton = Button(root, text = "Transfer", command= sendTest)
+sendButton = Button(root, text = "Transfer", command= send)
 userLabel = Label(root, text= "Enter username:")
 passLabel = Label(root, text= "Enter password:")
 portLabel = Label(root, text= "Port:")
