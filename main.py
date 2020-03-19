@@ -4,9 +4,9 @@ import functions
 import ssh
 
 def fileopen():
-    root.filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file")
+    root.filename =  filedialog.askdirectory(initialdir = "/",title = "Select file")
     newList.insert(1, root.filename)
-    functions.fileListAdd(root.filename)
+    functions.filesInDir(root.filename)
 
 def send():
     functions.getHost(newHost.get())

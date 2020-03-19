@@ -2,9 +2,8 @@ import paramiko
 import functions
 
 def ssh():
+    i = 0
 
-    print(str(functions.dirList[0]))
-    
     ssh_client =paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh_client.connect(functions.HOST, port=functions.PORT,username=functions.USER,password=functions.PASSWORD)
@@ -13,7 +12,9 @@ def ssh():
     print(stdout.readlines())
     
     ftp_client=ssh_client.open_sftp()
-    ftp_client.put(str(functions.dirList[0]),"~")
+
+    for i in range(len(functions.dirList)):
+        ftp_client.put(str(functions.dirList[i]),"/filetransfer")
 
     stdin,stdout,stderr=ssh_client.exec_command("ls")
     print(stdout.readlines())

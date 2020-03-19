@@ -1,9 +1,18 @@
 import paramiko
+from os import walk
 
 dirList = []
 
-def fileListAdd(newDir):
-    dirList.append(newDir)
+def filesInDir(newDir):
+    f = []
+    i = 0
+    for (dirpath, dirnames, filenames) in walk(newDir):
+        f.extend(filenames)
+        break
+    while i < len(f):
+        dirList.append(newDir + "/" + str(f[i]))
+        print(dirList)
+        i += 1
 
 def getHost(host):
     global HOST
