@@ -9,12 +9,15 @@ def ssh():
     ssh_client.connect(functions.HOST, port=functions.PORT,username=functions.USER,password=functions.PASSWORD)
 
     stdin,stdout,stderr=ssh_client.exec_command("ls")
+    stdin,stdout,stderr=ssh_client.exec_command("mkdir filetransfer | cd filetransfer")
     print(stdout.readlines())
     
     ftp_client=ssh_client.open_sftp()
 
     for i in range(len(functions.dirList)):
-        ftp_client.put(str(functions.dirList[i]),"/filetransfer")
+        fileLast = str(functions.dirList[i])
+        fileLast.split("/")
+        ftp_client.put(str(functions.dirList[i]),"filetransfer/" + fileLast[-1])
 
     stdin,stdout,stderr=ssh_client.exec_command("ls")
     print(stdout.readlines())
