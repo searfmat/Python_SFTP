@@ -17,7 +17,8 @@ def send():
 
 
 root = Tk()
-
+root.wm_iconbitmap('Python_SFTP\icon\lockicon.ico')
+root.wm_title('Milti-File SFTP')
 root.geometry("400x500")
 
 newHost = Entry(root)
