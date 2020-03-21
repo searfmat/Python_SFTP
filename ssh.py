@@ -10,18 +10,16 @@ def ssh():
 
     stdin,stdout,stderr=ssh_client.exec_command("ls")
     stdin,stdout,stderr=ssh_client.exec_command("mkdir filetransfer | cd filetransfer")
-    print(stdout.readlines())
     
     ftp_client=ssh_client.open_sftp()
 
     for i in range(len(functions.dirList)):
-        fileLast = str(functions.dirList[i])
-        fileLast.split("/")
-        ftp_client.put(str(functions.dirList[i]),"filetransfer/" + fileLast[-1])
-
+        fileLast = functions.dirList.copy()
+        run = fileLast[i].split("/")
+        print("filetransfer/" + run[-1])
+        ftp_client.put(str(functions.dirList[i]),"filetransfer/" + run[-1])
+     
     stdin,stdout,stderr=ssh_client.exec_command("ls")
-    print(stdout.readlines())
 
     ftp_client.close()
     ssh_client.close()
-    
